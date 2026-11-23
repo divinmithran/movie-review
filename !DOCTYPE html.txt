@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ticket Stub – Movie Reviews</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e9ecf5; --surface:#ffffff; --ink:#1f2744; --muted:#5a6384; --line:#c5cbe0;
+  --accent:#d6405b; --gold:#f2b33d; --on-accent:#ffffff; --focus:#1f2744;
+  --head:"Bricolage Grotesque","Trebuchet MS",Arial,sans-serif;
+  --body:"Newsreader",Georgia,"Times New Roman",serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#141a30;--surface:#1e2644;--ink:#eef0fa;--muted:#a6aecb;--line:#3a4570;--accent:#ef6f86;--gold:#f2b33d;--on-accent:#141a30;--focus:#eef0fa;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#141a30;--surface:#1e2644;--ink:#eef0fa;--muted:#a6aecb;--line:#3a4570;--accent:#ef6f86;--gold:#f2b33d;--on-accent:#141a30;--focus:#eef0fa;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.125rem;line-height:1.6}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.brand{font-family:var(--head);font-weight:800;font-size:1.4rem;letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+nav a{font-family:var(--head);font-weight:600;font-size:1rem;color:var(--ink);text-decoration:none;margin-left:20px}
+nav a:hover{text-decoration:underline}
+.hero{padding:40px 0 28px}
+h1{font-family:var(--head);font-weight:800;font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.02;letter-spacing:-.03em;margin:0 0 16px;max-width:15ch}
+.hero p{max-width:52ch;color:var(--muted);margin:0 0 28px}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+input[type=search],input[type=text],select,textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:10px 14px;width:100%}
+input[type=search]{max-width:320px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--head);font-weight:600;font-size:.95rem;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sortrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px;font-family:var(--head);font-weight:600}
+.sortrow select{width:auto;padding:6px 10px}
+.list{display:grid;gap:18px;grid-template-columns:1fr;padding-bottom:40px}
+@media(min-width:760px){.list{grid-template-columns:1fr 1fr}}
+.ticket{display:grid;grid-template-columns:1fr 92px;background:var(--surface);border-radius:14px;position:relative;box-shadow:0 1px 0 var(--line)}
+.ticket .main{padding:18px 18px 16px 20px;min-width:0}
+.ticket .stub{display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:3px dotted var(--line);padding:10px;text-align:center}
+.ticket .stub b{font-family:var(--head);font-weight:800;font-size:2.4rem;line-height:1;color:var(--accent)}
+.ticket .stub small{font-family:var(--head);font-size:.8rem;color:var(--muted)}
+.ticket::before,.ticket::after{content:"";position:absolute;right:80px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.ticket::before{top:-10px}.ticket::after{bottom:-10px}
+.ticket h2{font-family:var(--head);font-weight:800;font-size:1.35rem;line-height:1.15;margin:0 0 4px}
+.meta{font-family:var(--head);font-size:.9rem;color:var(--muted);margin:0 0 8px}
+.hook{margin:0 0 10px;font-style:italic}
+details summary{font-family:var(--head);font-weight:600;font-size:.95rem;color:var(--accent);cursor:pointer;width:fit-content}
+details p{margin:10px 0 0;font-size:1.05rem}
+.empty{grid-column:1/-1;background:var(--surface);border-radius:14px;padding:24px;color:var(--muted)}
+.write{background:var(--ink);color:var(--bg);padding:44px 0 56px}
+.write h2{font-family:var(--head);font-weight:800;font-size:2rem;letter-spacing:-.02em;margin:0 0 6px}
+.write p.lead{margin:0 0 22px;opacity:.85}
+form{display:grid;gap:14px;max-width:620px}
+label{font-family:var(--head);font-weight:600;font-size:.95rem;display:grid;gap:6px}
+.row{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:560px){.row{grid-template-columns:1fr 1fr 1fr}}
+.write input,.write select,.write textarea{color:#1f2744;background:#fff;border-color:#fff}
+textarea{min-height:120px;resize:vertical}
+button.go{font-family:var(--head);font-weight:800;font-size:1.05rem;background:var(--gold);color:#1f2744;border:0;border-radius:10px;padding:12px 22px;cursor:pointer;width:fit-content}
+#msg{min-height:1.4em;margin:0;font-family:var(--head);font-weight:600}
+footer{padding:20px 0;color:var(--muted);font-size:.95rem;text-align:center}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Ticket<span>Stub</span></div>
+    <nav><a href="#reviews">Reviews</a><a href="#write">Write a review</a></nav>
+  </header>
+  <section class="hero">
+    <h1>Honest reviews, one ticket at a time.</h1>
+    <p>Short, spoiler-free takes on films worth your evening. Search by title, filter by genre, and add your own review.</p>
+    <div class="tools">
+      <input type="search" id="q" placeholder="Search a film" aria-label="Search a film">
+      <div class="chips" id="chips" role="group" aria-label="Filter by genre"></div>
+    </div>
+  </section>
+  <main id="reviews">
+    <div class="sortrow">
+      <span id="count"></span>
+      <label style="display:flex;align-items:center;gap:8px;font-weight:600">Sort by
+        <select id="sort"><option value="top">Highest rated</option><option value="new">Newest</option><option value="az">Title A–Z</option></select>
+      </label>
+    </div>
+    <div class="list" id="list"></div>
+  </main>
+</div>
+
+<section class="write" id="write">
+  <div class="wrap">
+    <h2>Write a review</h2>
+    <p class="lead">Seen something lately? Add it to the board.</p>
+    <form id="form">
+      <label>Film title<input type="text" id="f-title" required maxlength="80"></label>
+      <div class="row">
+        <label>Genre<select id="f-genre"></select></label>
+        <label>Year<input type="text" id="f-year" inputmode="numeric" maxlength="4" placeholder="2024"></label>
+        <label>Rating out of 5<select id="f-rate"><option>5</option><option>4.5</option><option selected>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select></label>
+      </div>
+      <label>One-line verdict<input type="text" id="f-hook" required maxlength="120"></label>
+      <label>Your review<textarea id="f-body" required maxlength="1200"></textarea></label>
+      <button class="go" type="submit">Publish review</button>
+      <p id="msg" role="status"></p>
+    </form>
+  </div>
+</section>
+<footer>Reviews added here stay on this page until you reload it.</footer>
+
+<script>
+var reviews=[
+ {t:"Parasite",g:"Thriller",y:2019,r:5,h:"A dinner-party comedy that quietly turns into a nightmare.",b:"The film moves between laughs and dread without ever feeling like it changed gears. Every room in the two houses tells you who holds power, and the final act lands because the setup was so patient."},
+ {t:"Spirited Away",g:"Animation",y:2001,r:5,h:"A bathhouse for gods, and a heroine who earns her courage.",b:"Wonder arrives in small details: the soot sprites, the quiet train ride, the way work shapes the lead’s character. It is gentle and strange in equal measure."},
+ {t:"Mad Max: Fury Road",g:"Action",y:2015,r:4.5,h:"One long chase with more feeling than most dramas.",b:"The stunt work is practical and clear, so you always know where everyone is. Furiosa’s story carries the emotion while the engines carry the noise."},
+ {t:"The Grand Budapest Hotel",g:"Comedy",y:2014,r:4,h:"A storybook caper with a bruise of sadness underneath.",b:"Dollhouse sets and deadpan timing make it a pleasure to look at. The melancholy shows up late and gives the jokes more weight in hindsight."},
+ {t:"Arrival",g:"Sci-Fi",y:2016,r:4.5,h:"First contact as a puzzle about language and grief.",b:"It trusts you to follow a slow, thoughtful story. The ending reframes the whole film, and it works because the emotional thread was there from the first scene."},
+ {t:"Whiplash",g:"Drama",y:2014,r:4,h:"A two-person boxing match fought with drumsticks.",b:"Tense, loud and uncomfortable on purpose. It asks what greatness costs without handing you a tidy answer."}
+];
+var genres=["All","Action","Animation","Comedy","Drama","Sci-Fi","Thriller"];
+var state={g:"All",q:"",sort:"top"};
+var $=function(i){return document.getElementById(i)};
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function drawChips(){
+  $("chips").innerHTML=genres.map(function(g){return '<button type="button" class="chip" aria-pressed="'+(state.g===g)+'" data-g="'+g+'">'+g+'</button>'}).join("");
+}
+function draw(){
+  var list=reviews.map(function(r,i){r.i=i;return r}).filter(function(r){
+    return (state.g==="All"||r.g===state.g)&&r.t.toLowerCase().indexOf(state.q.toLowerCase())>-1;
+  });
+  list.sort(function(a,b){
+    if(state.sort==="top")return b.r-a.r||a.t.localeCompare(b.t);
+    if(state.sort==="new")return b.i-a.i;
+    return a.t.localeCompare(b.t);
+  });
+  $("count").textContent=list.length+(list.length===1?" review":" reviews");
+  $("list").innerHTML=list.length?list.map(function(r){
+    return '<article class="ticket"><div class="main"><h2>'+esc(r.t)+'</h2><p class="meta">'+esc(r.g)+(r.y?', '+esc(String(r.y)):'')+'</p><p class="hook">'+esc(r.h)+'</p><details><summary>Read the review</summary><p>'+esc(r.b)+'</p></details></div><div class="stub"><b>'+r.r+'</b><small>out of 5</small></div></article>';
+  }).join(""):'<div class="empty">No films match that search. Try a different title or choose All.</div>';
+}
+$("chips").addEventListener("click",function(e){var g=e.target.getAttribute("data-g");if(!g)return;state.g=g;drawChips();draw()});
+$("q").addEventListener("input",function(e){state.q=e.target.value;draw()});
+$("sort").addEventListener("change",function(e){state.sort=e.target.value;draw()});
+$("f-genre").innerHTML=genres.slice(1).map(function(g){return "<option>"+g+"</option>"}).join("");
+$("form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var y=parseInt($("f-year").value,10);
+  reviews.push({t:$("f-title").value.trim(),g:$("f-genre").value,y:isNaN(y)?"":y,r:parseFloat($("f-rate").value),h:$("f-hook").value.trim(),b:$("f-body").value.trim()});
+  $("form").reset();state.g="All";state.q="";$("q").value="";drawChips();draw();
+  $("msg").textContent="Published. Your review is now on the board.";
+});
+drawChips();draw();
+</script>
+</body>
+</html>
